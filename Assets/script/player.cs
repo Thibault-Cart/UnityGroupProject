@@ -4,45 +4,50 @@ using UnityEngine;
 
 public class player : MonoBehaviour
 {
+    //PUBLIC
+    [Header("Movement Settings")]
     public float speed = 10f;
 
+    [Header("Jump Settings")]
     public float jump = 10f;
-    [SerializeField]
-    private bool grounded = true;
-    public float jumpDuration = 0.2f;
-    private float jumpEnd = 0;
-    public bool wallJump = false;
     public bool doubleJump = false;
-    private bool hasDoubleJump = false;
+    public LayerMask groundLayer = 0;
+    //public bool wallJump = false;
 
+    [Header("Movement Settings")]
     public levelManager manager = null;
+
+
+    // PRIVATE
+    private bool grounded = true;
+    private bool hasDoubleJump = false;
+    //private int walled = 0;
+
     private Rigidbody2D rb = null;
     private Camera cam = null;
+    private SpriteRenderer sprite = null;
+
+
 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
     }
 
-    void Update()
+
+
+    private void Update()
     {
-        Movement();
-        CameraPos();
+        Jump();
+        //WallJump ?
     }
 
-    void Movement()
+    void Jump()
     {
-
-        Vector2 newSpeed = rb.velocity;
-
-        if (Input.GetAxis("Jump") == 0
-            && jumpEnd > Time.time)
-        {
-            jumpEnd = Time.time;
-        }
-        if (Input.GetAxis("Jump") != 0
+        if (Input.GetButtonDown("Jump")
             && (grounded
             || hasDoubleJump))
         {
@@ -50,18 +55,29 @@ public class player : MonoBehaviour
                 grounded = false;
             else
                 hasDoubleJump = false;
-            jumpEnd = Time.time + jumpDuration;
-            newSpeed.y = 0;
+            rb.velocityY = jump;
         }
-        if (jumpEnd > Time.time)
+        if (Input.GetButtonUp("Jump") && rb.velocityY > 0)
         {
-            newSpeed.y += jump * Time.fixedDeltaTime;
+            rb.velocityY *= 0.5f;
         }
+    }
 
-        if (speed < newSpeed.x || newSpeed.x < speed)
-            newSpeed.x += Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
 
-        rb.velocity = newSpeed;
+
+    private void FixedUpdate()
+    {
+        Movement();
+        CameraPos();
+    }
+
+    void Movement()
+    {
+        if (Input.GetAxis("Horizontal") < 0 == sprite.flipX)
+            sprite.flipX = !sprite.flipX;
+
+
+        rb.velocityX = Input.GetAxis("Horizontal") * speed;
     }
 
     void CameraPos()
@@ -80,18 +96,24 @@ public class player : MonoBehaviour
     }
 
 
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         foreach (ContactPoint2D contact in collision.contacts)
         {
             //Debug.DrawRay(contact.point, contact.normal * 10, Color.red);
-            if (contact.point.y < contact.normal.y
-                //&& collision.transform.tag == "Ground"
-                || (contact.normal.y == 0 && wallJump))
+            if ((contact.normal.y > 0.1f && rb.velocityY <= 0)
+                /*&& collision.gameObject.layer == groundLayer*/)
             {
                 grounded = true;
-                hasDoubleJump = false;
+                hasDoubleJump = doubleJump;
             }
+            //if ((contact.normal.y == 0 && wallJump)
+            //    //&& collision.transform.tag == "Ground")
+            //    )
+            //{
+            //    walled = contact.normal.x > 0 ? 1 : -1;
+            //}
         }
     }
 }

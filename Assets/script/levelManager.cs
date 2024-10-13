@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class levelManager : MonoBehaviour
 {
+    [Header("Camera Bounds Settings")]
     public Vector2Int cameraBoundsX = Vector2Int.zero;
     public Vector2Int cameraBoundsY = Vector2Int.zero;
 
@@ -33,5 +34,6 @@ public class levelManager : MonoBehaviour
 
         Gizmos.color = Color.white;
 #endif
+
     }
 }
