@@ -18,7 +18,7 @@ public class BulletForward : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("avance");
+       
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
         timer += Time.deltaTime;

@@ -24,7 +24,7 @@ public class CanonScript : MonoBehaviour
         if (timer >= shootingIntterval) // if ten second passed
         {
             // Action à effectuer toutes les 10 secondes
-            print("canon shoot");
+           
             Instantiate(bullet, ShootPoint.transform.position, ShootPoint.transform.rotation);
             timer = 0f; // reinitilize
         }

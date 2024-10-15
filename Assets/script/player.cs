@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class player : MonoBehaviour
 {
@@ -36,6 +37,21 @@ public class player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
     }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        print("danger"+other.name);
+        print("danger"+other.tag);
+        // Si l'objet qui entre dans le trigger a un tag spécifique, on redémarre le niveau
+        if (other.CompareTag("enemy"))
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            // Recharge la scène actuelle
+            SceneManager.LoadScene(currentScene.name);
+        }
+    }
+
 
 
 
