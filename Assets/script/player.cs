@@ -11,28 +11,30 @@ public class player : MonoBehaviour
 
     [Header("Jump Settings")]
     public float jump = 10f;
-    public bool doubleJump = false;
+    public float jumpBuffer = 1;
     public LayerMask groundLayer = 0;
-    //public bool wallJump = false;
 
     [Header("Movement Settings")]
     public levelManager manager = null;
 
+    [Header("Misc")]
+    public GameObject activeCheckpoint = null;
 
     // PRIVATE
-    private bool grounded = true;
-    private bool hasDoubleJump = false;
-    //private int walled = 0;
-
+    private float grounded;
     private Rigidbody2D rb = null;
     private Camera cam = null;
     private SpriteRenderer sprite = null;
+    private Vector3 respawnPoint;
+    private GameObject checkpoint = null;
 
 
 
 
     void Start()
     {
+        respawnPoint = transform.position;
+        grounded = Time.time;
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
@@ -40,15 +42,29 @@ public class player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        print("danger"+other.name);
-        print("danger"+other.tag);
+        print(name + " has hit " + other.name + " of type " + other.tag);
         // Si l'objet qui entre dans le trigger a un tag spécifique, on redémarre le niveau
         if (other.CompareTag("enemy"))
         {
-            Scene currentScene = SceneManager.GetActiveScene();
+            //Scene currentScene = SceneManager.GetActiveScene();
 
             // Recharge la scène actuelle
-            SceneManager.LoadScene(currentScene.name);
+            //SceneManager.LoadScene(currentScene.name);
+            transform.position = respawnPoint;
+        }
+        if (other.CompareTag("checkpoint"))
+        {
+            respawnPoint = other.transform.position;
+            if (checkpoint != null)
+                Destroy(checkpoint);
+            if (activeCheckpoint != null)
+            {
+                checkpoint = Instantiate(activeCheckpoint, respawnPoint + new Vector3(0, 0, -1), other.transform.rotation);
+            }
+        }
+        if (other.CompareTag("win"))
+        {
+            SceneManager.LoadScene("Ending");
         }
     }
 
@@ -58,19 +74,14 @@ public class player : MonoBehaviour
     private void Update()
     {
         Jump();
-        //WallJump ?
     }
 
     void Jump()
     {
         if (Input.GetButtonDown("Jump")
-            && (grounded
-            || hasDoubleJump))
+            && (grounded > Time.time))
         {
-            if (grounded)
-                grounded = false;
-            else
-                hasDoubleJump = false;
+            grounded = 0;
             rb.velocityY = jump;
         }
         if (Input.GetButtonUp("Jump") && rb.velocityY > 0)
@@ -118,18 +129,10 @@ public class player : MonoBehaviour
         foreach (ContactPoint2D contact in collision.contacts)
         {
             //Debug.DrawRay(contact.point, contact.normal * 10, Color.red);
-            if ((contact.normal.y > 0.1f && rb.velocityY <= 0)
-                /*&& collision.gameObject.layer == groundLayer*/)
+            if (contact.normal.y >= 0f)
             {
-                grounded = true;
-                hasDoubleJump = doubleJump;
+                grounded = Time.time + jumpBuffer;
             }
-            //if ((contact.normal.y == 0 && wallJump)
-            //    //&& collision.transform.tag == "Ground")
-            //    )
-            //{
-            //    walled = contact.normal.x > 0 ? 1 : -1;
-            //}
         }
     }
 }

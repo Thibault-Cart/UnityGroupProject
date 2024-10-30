@@ -9,16 +9,10 @@ public class BulletForward : MonoBehaviour
     public float lifeTime = 10.0f;
 
     private float timer = 0f;
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
-    // Update is called once per frame
     void Update()
     {
-       
         transform.Translate(Vector3.right * speed * Time.deltaTime);
 
         timer += Time.deltaTime;
@@ -28,6 +22,10 @@ public class BulletForward : MonoBehaviour
             Destroy(this.gameObject);
             timer = lifeTime;
         }
+    }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Destroy(this.gameObject);
     }
 }
