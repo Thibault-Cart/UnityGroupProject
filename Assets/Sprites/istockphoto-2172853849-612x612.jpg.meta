@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 25220beff04fa4c4687284f1911692de
+guid: debfe8d53aae05d4780bfd72fdf3957b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6497436666236428593
-    second: pngwing.com (4)_0
+      213: 243235402530869758
+    second: istockphoto-2172853849-612x612_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: pngwing.com (4)_0
+      name: istockphoto-2172853849-612x612_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1920
-        height: 1856
+        width: 612
+        height: 344
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -127,8 +127,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 131ee9919388b2a50800000000000000
-      internalID: 6497436666236428593
+      spriteID: ef1d6a45f45206300800000000000000
+      internalID: 243235402530869758
       vertices: []
       indices: 
       edges: []
@@ -143,8 +143,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      pngwing.com (4)_0: 6497436666236428593
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
