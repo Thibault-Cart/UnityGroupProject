@@ -5001,6 +5001,7 @@ MonoBehaviour:
     m_Bits: 8
   manager: {fileID: 0}
   activeCheckpoint: {fileID: 5387313645412117073, guid: a7459421437139145ad81862278bbb87, type: 3}
+  damageMat: {fileID: 2100000, guid: 1015f6db683784344aad4511a063bdca, type: 2}
 --- !u!50 &238614927620398078
 Rigidbody2D:
   serializedVersion: 4

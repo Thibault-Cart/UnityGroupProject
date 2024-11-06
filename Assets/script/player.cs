@@ -20,8 +20,10 @@ public class player : MonoBehaviour
 
     [Header("Misc")]
     public GameObject activeCheckpoint = null;
+    public Material damageMat;
 
     // PRIVATE
+    private float damage = 0;
     private float grounded;
     private Rigidbody2D rb = null;
     private Camera cam = null;
@@ -52,6 +54,7 @@ public class player : MonoBehaviour
             // Recharge la scène actuelle
             //SceneManager.LoadScene(currentScene.name);
             transform.position = respawnPoint;
+            damage = 0.8f;
         }
         if (other.CompareTag("checkpoint"))
         {
@@ -95,6 +98,12 @@ public class player : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (damage > 0)
+        {
+            Debug.Log(damage);
+            damageMat.SetFloat("_dark", damage);
+            damage -= 0.01f;
+        }
         Movement();
         CameraPos();
     }
