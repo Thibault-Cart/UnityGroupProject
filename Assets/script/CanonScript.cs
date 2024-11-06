@@ -25,7 +25,7 @@ public class CanonScript : MonoBehaviour
         {
             // Action à effectuer toutes les 10 secondes
            
-            Instantiate(bullet, ShootPoint.transform.position, ShootPoint.transform.rotation);
+            Instantiate(bullet, ShootPoint.transform.position, ShootPoint.transform.rotation, transform);
             timer = 0f; // reinitilize
         }
     }

@@ -8,6 +8,7 @@ public class player : MonoBehaviour
     //PUBLIC
     [Header("Movement Settings")]
     public float speed = 10f;
+    public ParticleSystem run;
 
     [Header("Jump Settings")]
     public float jump = 10f;
@@ -103,6 +104,10 @@ public class player : MonoBehaviour
         if (Input.GetAxis("Horizontal") < 0 == sprite.flipX)
             sprite.flipX = !sprite.flipX;
 
+        if (Input.GetAxis("Horizontal") != 0 && !run.isPlaying)
+            run.Play();
+        if (Input.GetAxis("Horizontal") == 0 && run.isPlaying)
+            run.Stop();
 
         rb.velocityX = Input.GetAxis("Horizontal") * speed;
     }
