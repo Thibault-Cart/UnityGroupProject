@@ -15770,6 +15770,14 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 2.37
       objectReference: {fileID: 0}
+    - target: {fileID: 2530069903242057288, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4325143982240594323, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5601768232546625973, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
       propertyPath: manager
       value: 
@@ -15814,9 +15822,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7422793074468577885, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7603657475748162771, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7899874329376283573, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8751570175774620087, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 586723485193595542, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class btnplayagain : MonoBehaviour
 {
     private Button yourButton;
-    public string SceneName ;
+    public string SceneName = "";
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +17,12 @@ public class btnplayagain : MonoBehaviour
 
     public void TaskOnClick()
     {
+        Time.timeScale = 1;
         //TODO put scene name
-        SceneManager.LoadScene(SceneName);
+        if (SceneName == "")
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        else
+            SceneManager.LoadScene(SceneName);
     }
 
     // Update is called once per frame

@@ -11,7 +11,7 @@ public class player : MonoBehaviour
     public ParticleSystem run;
 
     [Header("Jump Settings")]
-    public float jump = 10f;
+    public float jumpForce = 10f;
     public float jumpBuffer = 1;
     public LayerMask groundLayer = 0;
 
@@ -22,6 +22,13 @@ public class player : MonoBehaviour
     public GameObject activeCheckpoint = null;
     public Material damageMat;
 
+    // Movement for mobile app
+    [HideInInspector]
+    public float hor = 0;
+    [HideInInspector]
+    public bool jump = false;
+    private bool lastJump = false;
+
     // PRIVATE
     private float damage = 0;
     private float grounded;
@@ -30,6 +37,8 @@ public class player : MonoBehaviour
     private SpriteRenderer sprite = null;
     private Vector3 respawnPoint;
     private GameObject checkpoint = null;
+    private int mobileCheckTime = 1;
+    private bool mobileCheck = false;
 
 
 
@@ -41,6 +50,7 @@ public class player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
+        damageMat.SetFloat("_dark", 0);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -68,7 +78,7 @@ public class player : MonoBehaviour
         }
         if (other.CompareTag("win"))
         {
-            SceneManager.LoadScene("Ending");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 
@@ -77,21 +87,30 @@ public class player : MonoBehaviour
 
     private void Update()
     {
+        if (mobileCheckTime > 0)
+        {
+            mobileCheckTime--;
+            if (mobileCheckTime == 0 && (UnityEditor.EditorApplication.isRemoteConnected || Application.isMobilePlatform))
+                mobileCheck = true;
+        }
         Jump();
     }
 
     void Jump()
     {
-        if (Input.GetButtonDown("Jump")
+        if (!mobileCheck)
+            jump = Input.GetButton("Jump");
+        if (jump
             && (grounded > Time.time))
         {
             grounded = 0;
-            rb.velocityY = jump;
+            rb.velocityY = jumpForce;
         }
-        if (Input.GetButtonUp("Jump") && rb.velocityY > 0)
+        if (lastJump != jump && rb.velocityY > 0)
         {
             rb.velocityY *= 0.5f;
         }
+        lastJump = jump;
     }
 
 
@@ -100,7 +119,6 @@ public class player : MonoBehaviour
     {
         if (damage > 0)
         {
-            Debug.Log(damage);
             damageMat.SetFloat("_dark", damage);
             damage -= 0.01f;
         }
@@ -110,15 +128,17 @@ public class player : MonoBehaviour
 
     void Movement()
     {
-        if (Input.GetAxis("Horizontal") < 0 == sprite.flipX)
+        if (!mobileCheck)
+            hor = Input.GetAxis("Horizontal");
+        if (hor < 0 == sprite.flipX)
             sprite.flipX = !sprite.flipX;
 
-        if (Input.GetAxis("Horizontal") != 0 && !run.isPlaying)
+        if (hor != 0 && !run.isPlaying)
             run.Play();
-        if (Input.GetAxis("Horizontal") == 0 && run.isPlaying)
+        if (hor == 0 && run.isPlaying)
             run.Stop();
 
-        rb.velocityX = Input.GetAxis("Horizontal") * speed;
+        rb.velocityX = hor * speed;
     }
 
     void CameraPos()
