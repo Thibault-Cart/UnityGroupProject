@@ -40,7 +40,7 @@ public class player : MonoBehaviour
     private int mobileCheckTime = 1;
     private bool mobileCheck = false;
 
-
+    private AudioSource deathSound;
 
 
     void Start()
@@ -51,6 +51,8 @@ public class player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
         damageMat.SetFloat("_dark", 0);
+
+        deathSound = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -64,7 +66,12 @@ public class player : MonoBehaviour
             // Recharge la scène actuelle
             //SceneManager.LoadScene(currentScene.name);
             transform.position = respawnPoint;
+
             damage = 0.8f;
+
+            //play death sound
+            deathSound.Play();
+
         }
         if (other.CompareTag("checkpoint"))
         {
