@@ -5,20 +5,22 @@ using UnityEngine;
 
 public class Mobile_UI : MonoBehaviour
 {
-    // Delay of 3 frame for remote to connect;
-    int i = 3;
     public player player;
 
-    void Update()
+    void Start()
     {
-        if (i > 0)
-        {
-            i--;
-            #if UNITY_ANDROID
-            if (i == 0 && !UnityEditor.EditorApplication.isRemoteConnected && !Application.isMobilePlatform)
-                gameObject.SetActive(false);
-            #endif
-        }
+        if (!Application.isMobilePlatform)
+            gameObject.SetActive(false);
+    }
+
+    public void Activate()
+    {
+        if (Application.isMobilePlatform)
+            gameObject.SetActive(true);
+    }
+    public void Deactivate()
+    {
+        gameObject.SetActive(false);
     }
 
     public void Left()

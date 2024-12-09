@@ -98,7 +98,7 @@ public class player : MonoBehaviour
         {
             mobileCheckTime--;
             #if UNITY_ANDROID
-            if (mobileCheckTime == 0 && (UnityEditor.EditorApplication.isRemoteConnected || Application.isMobilePlatform))
+            if (mobileCheckTime == 0 && Application.isMobilePlatform)
                 mobileCheck = true;
             #endif
         }
