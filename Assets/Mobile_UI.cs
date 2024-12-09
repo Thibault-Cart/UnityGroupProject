@@ -14,10 +14,8 @@ public class Mobile_UI : MonoBehaviour
         if (i > 0)
         {
             i--;
-            #if UNITY_ANDROID
             if (i == 0 && !UnityEditor.EditorApplication.isRemoteConnected && !Application.isMobilePlatform)
                 gameObject.SetActive(false);
-            #endif
         }
     }
 
