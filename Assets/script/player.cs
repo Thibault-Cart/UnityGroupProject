@@ -106,7 +106,7 @@ public class player : MonoBehaviour
             grounded = 0;
             rb.velocityY = jumpForce;
         }
-        if (!jump && lastJump && rb.velocityY > 0)
+        if (lastJump != jump && rb.velocityY > 0)
         {
             rb.velocityY *= 0.5f;
         }
