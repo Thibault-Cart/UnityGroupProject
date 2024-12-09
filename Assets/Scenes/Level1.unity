@@ -16413,6 +16413,14 @@ PrefabInstance:
       propertyPath: manager
       value: 
       objectReference: {fileID: 2014815993}
+    - target: {fileID: 6406820437891075474, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_Name
+      value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 6406820437891075474, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6886425893941008194, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
       propertyPath: m_LocalPosition.x
       value: 31.407398
@@ -16456,6 +16464,10 @@ PrefabInstance:
     - target: {fileID: 7603657475748162771, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 8410186600004011057, guid: 7c51c94d547fd0246a13b85149e8a330, type: 3}
+      propertyPath: m_Color.a
+      value: 0.5294118
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

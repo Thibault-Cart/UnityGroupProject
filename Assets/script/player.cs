@@ -51,8 +51,16 @@ public class player : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         cam = Camera.main;
         damageMat.SetFloat("_dark", 0);
+        hor = 0;
+        jump = false;
 
         deathSound = GetComponent<AudioSource>();
+    }
+
+    public void ResetMovement()
+    {
+        hor = 0;
+        jump = false;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
